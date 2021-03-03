@@ -7,11 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.mvvmnewsapp.models.Article
 
-@Database(
-        entities = [Article::class],
-        version = 1,
-        exportSchema = false
-)
+@Database(entities = [Article::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class ArticleDatabase : RoomDatabase() {
 
@@ -33,7 +29,5 @@ abstract class ArticleDatabase : RoomDatabase() {
                         "article_db.db"
                 ).fallbackToDestructiveMigration()
                         .build()
-
-
     }
 }
