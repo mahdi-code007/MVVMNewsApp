@@ -11,6 +11,26 @@ import com.example.mvvmnewsapp.models.Article
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
+        return ArticleViewHolder(
+                ItemArticlePreviewBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                )
+        )
+
+    }
+
+    override fun getItemCount(): Int {
+        return differ.currentList.size
+    }
+
+    override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
+        val article = differ.currentList[position]
+        holder.bind(article)
+    }
+
     inner class ArticleViewHolder(private val binding: ItemArticlePreviewBinding) :
             RecyclerView.ViewHolder(binding.root) {
         fun bind(article: Article) {
@@ -38,31 +58,13 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
     }
 
-    private val differ = AsyncListDiffer(this, differCallback)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
-        return ArticleViewHolder(
-                ItemArticlePreviewBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                )
-        )
-
-    }
-
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
-
-    override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        val article = differ.currentList[position]
-        holder.bind(article)
-    }
+    val differ = AsyncListDiffer(this, differCallback)
 
     private var onItemClickListener: ((Article) -> Unit)? = null
 
     fun setItemClickListener(listener: (Article) -> Unit) {
         onItemClickListener = listener
     }
+
+
 }
