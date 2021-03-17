@@ -9,8 +9,9 @@ import com.bumptech.glide.Glide
 import com.example.mvvmnewsapp.databinding.ItemArticlePreviewBinding
 import com.example.mvvmnewsapp.models.Article
 
-class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
+class NewsAdapter (onArticleClick : OnItemClickListener) : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
+    var _onArticleClick = onArticleClick
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         return ArticleViewHolder(
                 ItemArticlePreviewBinding.inflate(
@@ -40,8 +41,8 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
                 binding.tvTitle.text = article.title
                 binding.tvDescription.text = article.description
                 binding.tvPublishedAt.text = article.publishedAt
-                setItemClickListener {
-                    onItemClickListener?.let { it(article) }
+                binding.root.setOnClickListener(){
+                    _onArticleClick.onArticleClick(article)
                 }
             }
         }
@@ -60,11 +61,14 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
     val differ = AsyncListDiffer(this, differCallback)
 
-    private var onItemClickListener: ((Article) -> Unit)? = null
+//    private var onItemClickListener: ((Article) -> Unit)? = null
 
-    fun setItemClickListener(listener: (Article) -> Unit) {
-        onItemClickListener = listener
+//    fun setItemClickListener(listener: (Article) -> Unit) {
+//        onItemClickListener = listener
+//    }
+
+    interface OnItemClickListener {
+        fun onArticleClick(article: Article)
     }
-
 
 }
