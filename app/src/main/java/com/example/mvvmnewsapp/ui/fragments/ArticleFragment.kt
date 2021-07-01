@@ -13,12 +13,13 @@ import com.example.mvvmnewsapp.databinding.FragmentArticleBinding
 import com.example.mvvmnewsapp.databinding.FragmentSearchNewsBinding
 import com.example.mvvmnewsapp.ui.NewsActivity
 import com.example.mvvmnewsapp.ui.NewsViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class ArticleFragment : Fragment() {
 
     private lateinit var binding: FragmentArticleBinding
     private lateinit var viewModel: NewsViewModel
-    val args: ArticleFragmentArgs by navArgs()
+    private val args: ArticleFragmentArgs by navArgs()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentArticleBinding.inflate(inflater)
 
@@ -29,10 +30,19 @@ class ArticleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = (activity as NewsActivity).viewModel
+
+
         val article = args.article
         binding.webView.apply {
             webViewClient = WebViewClient()
-            loadUrl(article.url)
+            article.url?.let {
+                loadUrl(it)
+            }
+
+            binding.fab.setOnClickListener() {
+                viewModel.saveArticle(article)
+                Snackbar.make(view, "Article Saved Successfully ..", Snackbar.LENGTH_LONG).show()
+            }
         }
     }
 }

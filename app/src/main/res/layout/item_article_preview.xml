@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="180dp"
         android:padding="8dp">
 
         <ImageView
@@ -52,9 +52,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:ellipsize="end"
-            android:maxLines="5"
+            android:maxLines="4"
             android:text="DESCRIPTION"
             android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivArticleImage"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle" />

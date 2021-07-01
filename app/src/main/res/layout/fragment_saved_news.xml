@@ -12,13 +12,11 @@
         android:layout_height="match_parent"
         tools:context=".ui.fragments.SavedNewsFragment">
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSavedNews"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="قيد التطوير"
-            android:textSize="50sp"
-            android:textStyle="bold"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_article_preview"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
